@@ -18,14 +18,14 @@ const Rating = ({ rating, maxRating, starStyle, text }) => {
 
   return (
     <div>
-      {Array.from(Array(amountFull)).map(() => (
-        <i style={{ ...starStyle }} className="fas fa-star" />
+      {Array.from(Array(amountFull)).map((el, i) => (
+        <i key={i} style={{ ...starStyle }} className="fas fa-star" />
       ))}
       {isHalf && (
         <i style={{ ...starStyle }} className="fas fa-star-half-alt" />
       )}
-      {Array.from(Array(amountEmpty)).map(() => (
-        <i style={{ ...starStyle }} className="far fa-star" />
+      {Array.from(Array(amountEmpty)).map((el, i) => (
+        <i key={i} style={{ ...starStyle }} className="far fa-star" />
       ))}
       {text && ` ${text}`}
     </div>

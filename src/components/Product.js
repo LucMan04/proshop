@@ -4,15 +4,19 @@ import Rating from "./Rating";
 import Link from "next/link";
 
 const Product = ({ product }) => {
+  /**
+   * Correct Link Props. Make sure to use href and as
+   * https://github.com/vercel/next.js/issues/7962#issuecomment-696832655
+   */
   return (
     <Card className="my-3 p-3 rounded">
-      <Link href={`/product/${product._id}`}>
+      <Link href={`/product/[productId]`} as={`/product/${product._id}`}>
         <a>
           <Card.Img src={product.image} variant="top" />
         </a>
       </Link>
       <Card.Body>
-        <Link href={`/product/${product._id}`}>
+        <Link href={`/product/[productId]`} as={`/product/${product._id}`}>
           <a>
             <Card.Title as="div">
               <strong>{product.name}</strong>
