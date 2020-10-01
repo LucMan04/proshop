@@ -1,8 +1,8 @@
 import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { Col, Row } from "react-bootstrap";
+import Loading from "../components/Loading";
 import Product from "../components/Product";
-import Spinner from "react-bootstrap/Spinner";
 
 const HomeScreen = () => {
   const [products, setProducts] = new useState();
@@ -30,7 +30,7 @@ const HomeScreen = () => {
             );
           })
         ) : (
-          <Spinner />
+          <Loading />
         )}
       </Row>
     </>

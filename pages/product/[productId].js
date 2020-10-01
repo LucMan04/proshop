@@ -2,7 +2,7 @@ import Axios from "axios";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import ProductScreen from "../../src/screens/ProductScreen";
-import Spinner from "react-bootstrap/Spinner";
+import Loading from "../../src/components/Loading";
 
 const productDetail = () => {
   const router = useRouter();
@@ -28,7 +28,7 @@ const productDetail = () => {
     }
   }, [router]);
 
-  return <>{!loading ? <ProductScreen product={product} /> : <Spinner />}</>;
+  return <>{!loading ? <ProductScreen product={product} /> : <Loading />}</>;
 };
 
 export default productDetail;
