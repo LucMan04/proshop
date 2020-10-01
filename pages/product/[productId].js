@@ -8,11 +8,7 @@ const productDetail = () => {
   const { productId } = router.query;
   const product = products.find((product) => product._id === productId);
 
-  return (
-    <>
-      <ProductScreen product={product} />
-    </>
-  );
+  return <>{product && <ProductScreen product={product} />}</>;
 };
 
 export default productDetail;
