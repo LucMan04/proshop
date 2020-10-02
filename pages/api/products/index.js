@@ -1,4 +1,6 @@
+import connectDB from "../../../db/config/db";
 import products from "../../../src/products";
+connectDB();
 
 export default (req, res) => {
   switch (req.method) {
