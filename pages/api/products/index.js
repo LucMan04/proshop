@@ -1,12 +1,19 @@
+import mongoose from "mongoose";
 import connectDB from "../../../db/config/db";
-import products from "../../../src/products";
+import Product from "../../../db/models/productModel";
 connectDB();
 
-export default (req, res) => {
+export default async (req, res) => {
   switch (req.method) {
     case "GET":
-      res.statusCode = 200;
-      res.json(products);
+      const products = await Product.find({});
+      if (products) {
+        res.statusCode = 200;
+        res.json(products);
+      } else {
+        res.statusCode = 404;
+        res.send(`Could not find any products.`);
+      }
       break;
     case "POST":
       break;

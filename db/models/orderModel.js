@@ -1,4 +1,4 @@
-const mongoose = require("mongoose");
+import mongoose from "mongoose";
 
 const orderSchema = mongoose.Schema(
   {
@@ -45,7 +45,9 @@ const orderSchema = mongoose.Schema(
     timestamps: true,
   }
 );
-
-const Order = mongoose.model("Order", orderSchema);
-
-export default Order;
+/**
+ * Error: OverwriteModelError: Cannot overwrite `Product` model once compiled.
+ * Solution: Do not create yet another model if it already exists
+ * https://stackoverflow.com/a/51351095/11873215
+ */
+export default mongoose.models.Order || mongoose.model("Order", orderSchema);

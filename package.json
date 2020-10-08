@@ -5,10 +5,13 @@
   "scripts": {
     "dev": "next dev",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "data:import": "node ./db/seeder.js",
+    "data:delete": "node ./db/seeder.js -d"
   },
   "dependencies": {
     "axios": "^0.20.0",
+    "bcryptjs": "^2.4.3",
     "dotenv": "^8.2.0",
     "mongoose": "^5.10.7",
     "next": "9.5.3",
