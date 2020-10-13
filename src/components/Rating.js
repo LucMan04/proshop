@@ -8,10 +8,14 @@ const Rating = ({ rating, maxRating, starStyle, text }) => {
     return rating % 1 > 0;
   };
   const getDistributionOfStars = (rating) => {
-    const amountFull = getFullStars(rating);
-    const isHalf = isHalfStar(rating);
-    const amountEmpty = maxRating - (amountFull + isHalf);
-    return { amountFull, isHalf, amountEmpty };
+    if (rating && rating !== undefined) {
+      const amountFull = getFullStars(rating);
+      const isHalf = isHalfStar(rating);
+      const amountEmpty = maxRating - (amountFull + isHalf);
+      return { amountFull, isHalf, amountEmpty };
+    } else {
+      return { amountFull: 0, isHalf: false, amountEmpty: maxRating };
+    }
   };
 
   const { amountFull, isHalf, amountEmpty } = getDistributionOfStars(rating);

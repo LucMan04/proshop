@@ -12,7 +12,7 @@ export default async (req, res) => {
         res.json(products);
       } else {
         res.statusCode = 404;
-        res.send(`Could not find any products.`);
+        res.json({ message: `Could not find any products.` });
       }
       break;
     case "POST":

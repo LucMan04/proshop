@@ -1,34 +1,41 @@
-import Axios from "axios";
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import ProductScreen from "../../src/screens/ProductScreen";
-import Loading from "../../src/components/Loading";
+import Loader from "../../src/components/Loader";
+import { useDispatch, useSelector } from "react-redux";
+import { listProductDetails } from "../../src/actions/productActions";
 
 const productDetail = () => {
+  const dispatch = useDispatch();
+  const productDetails = useSelector((state) => state.productDetails);
+  const { loading, error, product } = productDetails;
   const router = useRouter();
-
-  const [product, setProduct] = new useState();
-  const [loading, setLoading] = new useState(true);
-
   /**
    * make sure router, router.query and productId are available before sending request
    * https://github.com/vercel/next.js/issues/8051#issuecomment-580368756
    */
+
+  // apparently action is not dispatched
   useEffect(() => {
     if (router && router.query) {
       const { productId } = router.query;
       if (productId) {
-        const fetchProduct = async () => {
-          const { data } = await Axios.get(`/api/products/${productId}`);
-          setProduct(data);
-          setLoading(false);
-        };
-        fetchProduct();
+        dispatch(listProductDetails(productId));
       }
     }
-  }, [router]);
+  }, [dispatch, router]);
 
-  return <>{!loading ? <ProductScreen product={product} /> : <Loading />}</>;
+  return (
+    <>
+      {loading ? (
+        <Loader />
+      ) : error ? (
+        <Message variant="danger">{error}</Message>
+      ) : (
+        <ProductScreen product={product} />
+      )}
+    </>
+  );
 };
 
 export default productDetail;
