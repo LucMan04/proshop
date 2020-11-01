@@ -1,11 +1,26 @@
-import React from "react";
+import React, { useState } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { Row, Col, Image, ListGroup, Card, Button } from "react-bootstrap";
+import {
+  Row,
+  Col,
+  Image,
+  ListGroup,
+  Card,
+  Button,
+  Form,
+} from "react-bootstrap";
 import Rating from "../components/Rating";
+import { useRouter } from "next/router";
 
 const ProductScreen = ({ product }) => {
+  const [qty, setQty] = new useState(1);
   const available = product.countInStock > 0;
+  const router = useRouter();
+  const addToCartHandler = () => {
+    router.push(`/cart/${product.productId}?qty=${qty}`);
+  };
+
   return (
     <>
       <Head>
@@ -46,11 +61,36 @@ const ProductScreen = ({ product }) => {
                   <Col>{available ? "In Stock" : "Out Of Stock"}</Col>
                 </Row>
               </ListGroup.Item>
+              {product.countInStock > 0 && (
+                <ListGroup.Item>
+                  <Row>
+                    <Col>Qty</Col>
+                    <Col>
+                      <Form.Control
+                        as="select"
+                        value={qty}
+                        onChange={(e) => {
+                          setQty(e.target.value);
+                        }}
+                      >
+                        {[...Array(product.countInStock).keys()].map((x) => {
+                          return (
+                            <option key={x + 1} value={x + 1}>
+                              {x + 1}
+                            </option>
+                          );
+                        })}
+                      </Form.Control>
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
+              )}
               <ListGroup.Item>
                 <Button
                   className="btn-block btn-dark"
                   type="button"
                   disabled={!available}
+                  onClick={addToCartHandler}
                 >
                   Add to Cart
                 </Button>

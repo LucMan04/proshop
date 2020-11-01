@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import ProductScreen from "../../src/screens/ProductScreen";
 import Loader from "../../src/components/Loader";
@@ -7,6 +7,7 @@ import { listProductDetails } from "../../src/actions/productActions";
 
 const productDetail = () => {
   const dispatch = useDispatch();
+  const [productId, setProductId] = new useState(null);
   const productDetails = useSelector((state) => state.productDetails);
   const { loading, error, product } = productDetails;
   const router = useRouter();
@@ -15,11 +16,11 @@ const productDetail = () => {
    * https://github.com/vercel/next.js/issues/8051#issuecomment-580368756
    */
 
-  // apparently action is not dispatched
   useEffect(() => {
     if (router && router.query) {
       const { productId } = router.query;
       if (productId) {
+        setProductId(productId);
         dispatch(listProductDetails(productId));
       }
     }
@@ -32,7 +33,7 @@ const productDetail = () => {
       ) : error ? (
         <Message variant="danger">{error}</Message>
       ) : (
-        <ProductScreen product={product} />
+        <ProductScreen product={{ ...product, productId }} />
       )}
     </>
   );
