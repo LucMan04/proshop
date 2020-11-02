@@ -16,11 +16,12 @@ export default async (req, res) => {
         res.json({ message: `Could not find product with id ${productId}.` });
       }
       break;
-    case "POST":
-      break;
     case "PUT":
       break;
+    case "DELETE":
+      break;
     default:
+      res.end();
       break;
   }
 };
