@@ -7,13 +7,21 @@ const {
   productDetailsReducer,
 } = require("./reducers/productReducers.js");
 const { cartReducer } = require("./reducers/cartReducers.js");
-const { userLoginReducer } = require("./reducers/userReducers.js");
+const {
+  userLoginReducer,
+  userRegisterReducer,
+  userDetailsReducer,
+  userUpdateProfileReducer,
+} = require("./reducers/userReducers.js");
 
 const reducer = combineReducers({
   productList: productListReducer,
   productDetails: productDetailsReducer,
   cart: cartReducer,
   userLogin: userLoginReducer,
+  userRegister: userRegisterReducer,
+  userDetails: userDetailsReducer,
+  userUpdateProfile: userUpdateProfileReducer,
 });
 
 // need cookies instead of local storage because of ssr

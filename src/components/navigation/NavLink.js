@@ -5,7 +5,7 @@ import React, { useState, useEffect } from "react";
 /**
  * Custom NavLink Component to support Client Side Navigation provided by Next.js
  */
-const NavLink = ({ href, iconClassName, text, brand }) => {
+const NavLink = ({ href, iconClassName, text, brand, ...rest }) => {
   const [isActive, setIsActive] = new useState(false);
   const router = useRouter();
 
@@ -30,6 +30,7 @@ const NavLink = ({ href, iconClassName, text, brand }) => {
             isActive && !brand ? "active" : ""
           }`}
           role="button"
+          {...rest}
         >
           <span className={`${brand ? "navbar-brand" : ""}`}>
             {iconClassName && (

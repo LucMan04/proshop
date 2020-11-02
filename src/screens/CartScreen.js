@@ -13,6 +13,7 @@ import { addToCart, removeFromCart } from "../actions/cartActions";
 import Message from "../components/Message";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import Head from "next/head";
 
 const CartScreen = ({ cartItems }) => {
   const router = useRouter();
@@ -26,8 +27,26 @@ const CartScreen = ({ cartItems }) => {
     router.push("/login?redirect=shipping");
   };
 
+  const itemsInTotal = cartItems.reduce(
+    (totalCount, currentItem) => totalCount + currentItem.qty,
+    0
+  );
+
+  const priceInTotal = cartItems
+    .reduce(
+      (totalCount, currentItem) =>
+        totalCount + currentItem.qty * currentItem.price,
+      0
+    )
+    .toFixed(2);
+
   return (
     <Row>
+      <Head>
+        <title>
+          {itemsInTotal} Items in Cart - ${priceInTotal} - ProShop
+        </title>
+      </Head>
       <Col md={8}>
         <h1>Shopping Cart</h1>
         {cartItems.length === 0 ? (
@@ -102,24 +121,8 @@ const CartScreen = ({ cartItems }) => {
         <Card>
           <ListGroup>
             <ListGroup.Item>
-              <h2>
-                Subtotal (
-                {cartItems.reduce(
-                  (totalCount, currentItem) => totalCount + currentItem.qty,
-                  0
-                )}
-                ) items
-              </h2>
-              <p>
-                $
-                {cartItems
-                  .reduce(
-                    (totalCount, currentItem) =>
-                      totalCount + currentItem.qty * currentItem.price,
-                    0
-                  )
-                  .toFixed(2)}
-              </p>
+              <h2>Subtotal ({itemsInTotal}) items</h2>
+              <p>${priceInTotal}</p>
             </ListGroup.Item>
             <ListGroup.Item>
               <Button
